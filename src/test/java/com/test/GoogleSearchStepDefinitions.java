@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,6 +22,8 @@ import cucumber.api.java.en.When;
 public class GoogleSearchStepDefinitions {
 
 	static {
+		DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+		capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
 		System.setProperty("webdriver.ie.driver",
 				"C:\\Users\\hgarg\\Downloads\\IEDriverServer_x64_2.53.1\\IEDriverServer.exe");
 		
@@ -31,7 +34,7 @@ public class GoogleSearchStepDefinitions {
 
 	@Given("^I am on the Google search page$")
 	public void I_visit_google_page() {
-		driver.get("www.google.com");
+		driver.get("http://www.google.com");
 		System.out.println("On given condition");
 	}
 
