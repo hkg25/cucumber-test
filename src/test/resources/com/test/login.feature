@@ -1,5 +1,6 @@
 Feature: Login to gmail with different users
 
+  @Gmail_Login
   Scenario Outline: Login Gmail
     Given I go to "loginUrl"
     When I enter username as "<username>"
