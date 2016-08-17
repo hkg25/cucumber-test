@@ -27,7 +27,7 @@ public class GoogleSearchStepDefinitions {
 	static {
 
 		System.setProperty("webdriver.ie.driver",
-				"C:\\Users\\hgarg\\Downloads\\IEDriverServer_x64_2.53.1\\IEDriverServer.exe");
+				"drivers\\ie\\IEDriverServer.exe");
 
 		System.out.println(System.getProperty("webdriver.ie.driver"));
 		DesiredCapabilities capabilities = DesiredCapabilities
@@ -44,7 +44,6 @@ public class GoogleSearchStepDefinitions {
 	@Given("^I am on the Google search page$")
 	public void I_visit_google_page() {
 		driver.get("http://www.google.com");
-		System.out.println("On given condition");
 	}
 
 	@When("^I search for \"(.*)\"$")
@@ -54,7 +53,6 @@ public class GoogleSearchStepDefinitions {
 		element.sendKeys(query);
 		element.submit();
 
-		System.out.println("On when condition");
 	}
 
 	@Then("^the page title should start with \"(.*)\"$")
@@ -65,9 +63,7 @@ public class GoogleSearchStepDefinitions {
 				return d.getTitle().toLowerCase().startsWith("cheese");
 			}
 		});
-
-		// assertEquals(driver.getTitle(),startsWith("cheese"));
-		System.out.println("On then condition");
+		//assertEquals(driver.getTitle(),startsWith("cheese"));
 	}
 
 	@After
