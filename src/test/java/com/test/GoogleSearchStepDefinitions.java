@@ -3,13 +3,15 @@
  */
 package com.test;
 
+import static com.webdriver.DriverFactory.getInstance;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.webdriver.WebDriverEnum;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
@@ -25,21 +27,8 @@ public class GoogleSearchStepDefinitions {
 	private static WebDriver driver = null;
 
 	static {
-
-		System.setProperty("webdriver.ie.driver",
-				"drivers\\ie\\IEDriverServer.exe");
-
-		System.out.println(System.getProperty("webdriver.ie.driver"));
-		DesiredCapabilities capabilities = DesiredCapabilities
-				.internetExplorer();
-		capabilities
-				.setCapability(
-						InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-						true);
-		driver = new InternetExplorerDriver(capabilities);
+		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
 	}
-
-	// private final WebDriver driver = new InternetExplorerDriver();
 
 	@Given("^I am on the Google search page$")
 	public void I_visit_google_page() {
