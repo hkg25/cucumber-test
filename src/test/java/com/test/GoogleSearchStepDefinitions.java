@@ -3,18 +3,14 @@
  */
 package com.test;
 
-import static com.webdriver.DriverFactory.getInstance;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
-import com.webdriver.WebDriverEnum;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,28 +19,30 @@ import cucumber.api.java.en.When;
  * @author hgarg
  *
  */
-public class GoogleSearchStepDefinitions {
-
-	private static WebDriver driver = null;
+@ContextConfiguration("/cucumber.xml")
+public class GoogleSearchStepDefinitions{
 	
-	@Before
-	public void init(){
-		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
+	@Autowired
+	private BaseTest baseTest;
+	
+	public GoogleSearchStepDefinitions(){
+		
 	}
-
-	/*static {
-		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
-	}*/
+	
+	
+	public GoogleSearchStepDefinitions(BaseTest baseTest){
+		this.baseTest = baseTest;
+	}
 
 	@Given("^I am on the Google search page$")
 	public void I_visit_google_page() {
-		driver.get("http://www.google.com");
+		baseTest.getDriver().get("http://www.google.com");
 	}
 
 	@When("^I search for \"(.*)\"$")
 	public void search_For(String query) {
 
-		WebElement element = driver.findElement(By.name("q"));
+		WebElement element = baseTest.getDriver().findElement(By.name("q"));
 		element.sendKeys(query);
 		element.submit();
 
@@ -53,17 +51,17 @@ public class GoogleSearchStepDefinitions {
 	@Then("^the page title should start with \"(.*)\"$")
 	public void checkTitle(String str) {
 
-		new WebDriverWait(driver, 10).until(new ExpectedCondition<Boolean>() {
+		new WebDriverWait(baseTest.getDriver(), 10).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver d) {
 				return d.getTitle().toLowerCase().startsWith("cheese");
 			}
 		});
-		//assertEquals(driver.getTitle(),startsWith("cheese"));
+		// assertEquals(driver.getTitle(),startsWith("cheese"));
 	}
 
-	@After
+	/*@After
 	public void closeBrowser() {
-		driver.close();
-	}
+		baseTest.getDriver().close();
+	}*/
 
 }

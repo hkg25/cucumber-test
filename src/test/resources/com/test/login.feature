@@ -9,6 +9,6 @@ Feature: Login to gmail with different users
     And I click on "LogoutLink" link
 
     Examples: 
-      | username       | password | title   |
-      | harrygenius99  | Ciitdc#123456      | success |
-      | harrygenius099 | def      					| Fail    |
+      | username       | password     | title   |
+      | harrygenius99  | abc          | Fail    |
+      | harrygenius099 | waqawaqafifa | Success |
