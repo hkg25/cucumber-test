@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 	//	glue = "GoogleSearchStepDefinitions",
 		strict = true, 
 	//	features = "src/test/resources/", 
-		tags = {"@Google_search,@Gmail_Login"}
+		tags = {"@Google_search,@Gmail_Login,@Test"}
 		)
 //format = {"pretty", "json:target/" })
 public class CukeTest {

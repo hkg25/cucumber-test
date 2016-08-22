@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.webdriver.WebDriverEnum;
 
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,10 +26,15 @@ import cucumber.api.java.en.When;
 public class GoogleSearchStepDefinitions {
 
 	private static WebDriver driver = null;
-
-	static {
+	
+	@Before
+	public void init(){
 		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
 	}
+
+	/*static {
+		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
+	}*/
 
 	@Given("^I am on the Google search page$")
 	public void I_visit_google_page() {
@@ -57,7 +63,7 @@ public class GoogleSearchStepDefinitions {
 
 	@After
 	public void closeBrowser() {
-		driver.quit();
+		driver.close();
 	}
 
 }

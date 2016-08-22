@@ -1,13 +1,12 @@
 package com.test;
 
-import static com.webdriver.DriverFactory.getInstance;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import com.webdriver.WebDriverEnum;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,12 +16,23 @@ public class LoginGmailStepDefs {
 
 	private static WebDriver driver = null;
 
-	static {
-		driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
+	@Before
+	public void init() {
+		// driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER);
+		DesiredCapabilities capabilities = DesiredCapabilities
+				.internetExplorer();
+		capabilities
+				.setCapability(
+						InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+						true);
+		driver = new InternetExplorerDriver(capabilities);
 	}
 
-	@Given("^I go to \"(.*)\"$")
-	public void I_goto_loginUrl(String loginUrl) {
+	/*
+	 * static { driver = getInstance(WebDriverEnum.INTERNET_EXPLORER_DRIVER); }
+	 */
+	@Given("^I go to loginURL")
+	public void I_goto_loginUrl() {
 		driver.get("http://www.gmail.com");
 	}
 
@@ -35,7 +45,7 @@ public class LoginGmailStepDefs {
 	@And("^I enter password as \"(.*)\"$")
 	public void enter_password(String password) {
 		driver.findElement(By.id("Passwd")).sendKeys(password);
-		driver.findElement(By.id("next")).submit();
+		driver.findElement(By.id("signIn")).submit();
 	}
 
 	@Then("^I logged in username should be \"(.*)\"")
@@ -44,13 +54,13 @@ public class LoginGmailStepDefs {
 	}
 
 	@And("^I click on \"(.*)\" link$")
-	public void i_clickon_logout() {
-		System.out.println("Logged out !!!");
+	public void i_clickon_logout(String link) {
+		System.out.println("Logged out !!!" + link);
 	}
 
 	@After
 	public void closeBrowser() {
-		driver.quit();
+		driver.close();
 	}
 
 }

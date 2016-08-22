@@ -15,11 +15,11 @@ public class DriverFactory {
 	public static WebDriver getInstance(WebDriverEnum driverEnum) {
 		setSystemProperties();
 		if (driver == null) {
-			synchronized (WebDriver.class) {
-				if (driver == null) {
+			/*synchronized (WebDriver.class) {
+				if (driver == null) {*/
 					driver = getDriverInstance(driverEnum);
-				}
-			}
+			/*	}
+			}*/
 		}
 		return driver;
 	}
