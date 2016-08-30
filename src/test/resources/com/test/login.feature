@@ -10,5 +10,5 @@ Feature: Login to gmail with different users
 
     Examples: 
       | username       | password     | title   |
-      | harrygenius99  | abc          | Fail    |
-      | harrygenius099 | waqawaqafifa | Success |
+      | abc@gmail.com  | abc          | Fail    |
+      | def@gmail.com  | def           | Success |
